@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHIP8.Core", "CHIP8.Core\CHIP8.Core.csproj", "{86485C83-7829-415A-B6E7-C59FCFD7F078}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CHIP8.Core", "CHIP8.Core\CHIP8.Core.csproj", "{86485C83-7829-415A-B6E7-C59FCFD7F078}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHIP8.Infrastructure", "..\CHIP8.Infrastructure\CHIP8.Infrastructure.csproj", "{FD684A1A-F3C2-4CFA-B142-73DB9FCD931E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CHIP8.InMemoryImplementation", "CHIP8.InMemoryImplementation\CHIP8.InMemoryImplementation.csproj", "{7A638541-807E-4CF7-BEAF-2CC41E509E7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHIP8.InMemoryImplementation", "CHIP8.InMemoryImplementation\CHIP8.InMemoryImplementation.csproj", "{7A638541-807E-4CF7-BEAF-2CC41E509E7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CHIP8.Console", "CHIP8.Console\CHIP8.Console.csproj", "{C8DECCAF-05EB-4D8E-8A88-F846DFB43079}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHIP8.Console", "CHIP8.Console\CHIP8.Console.csproj", "{C8DECCAF-05EB-4D8E-8A88-F846DFB43079}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CHIP8.OpCodes", "CHIP8.OpCodes\CHIP8.OpCodes.csproj", "{595C8013-E605-4469-AC3B-04994C62C789}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHIP8.OpCodes", "CHIP8.OpCodes\CHIP8.OpCodes.csproj", "{595C8013-E605-4469-AC3B-04994C62C789}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CHIP8.Infrastructure", "CHIP8.Infrastructure\CHIP8.Infrastructure.csproj", "{C9829F13-54AD-47CF-A89F-34B4912CA2E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,6 @@ Global
 		{86485C83-7829-415A-B6E7-C59FCFD7F078}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86485C83-7829-415A-B6E7-C59FCFD7F078}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86485C83-7829-415A-B6E7-C59FCFD7F078}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD684A1A-F3C2-4CFA-B142-73DB9FCD931E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD684A1A-F3C2-4CFA-B142-73DB9FCD931E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD684A1A-F3C2-4CFA-B142-73DB9FCD931E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD684A1A-F3C2-4CFA-B142-73DB9FCD931E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A638541-807E-4CF7-BEAF-2CC41E509E7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A638541-807E-4CF7-BEAF-2CC41E509E7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A638541-807E-4CF7-BEAF-2CC41E509E7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{595C8013-E605-4469-AC3B-04994C62C789}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{595C8013-E605-4469-AC3B-04994C62C789}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{595C8013-E605-4469-AC3B-04994C62C789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9829F13-54AD-47CF-A89F-34B4912CA2E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9829F13-54AD-47CF-A89F-34B4912CA2E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9829F13-54AD-47CF-A89F-34B4912CA2E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9829F13-54AD-47CF-A89F-34B4912CA2E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

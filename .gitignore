@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+*.suo
+/.vs/CHIP8/DesignTimeBuild/.dtbcache.v2
+/CHIP8.Console/obj/CHIP8.Console.csproj.nuget.dgspec.json
+/CHIP8.Infrastructure/obj/CHIP8.Infrastructure.csproj.nuget.dgspec.json
+/CHIP8.InMemoryImplementation/obj/CHIP8.InMemoryImplementation.csproj.nuget.dgspec.json
+/CHIP8.OpCodes/obj/CHIP8.OpCodes.csproj.nuget.dgspec.json

@@ -9,8 +9,10 @@ namespace CHIP8.Core
     {
         private readonly ICHIP8Timer _delayTimer;
         private readonly CHIP8Register<Byte> _generalPurposeRegisters;
+        private readonly CHIP8Register<UInt16> _instructionRegister;
         private readonly ICHIP8Memory _memory;
         private readonly CHIP8Register<UInt16> _programCounter;
+        private readonly ICHIP8ScreenBuffer _screen;
         private readonly ICHIP8Timer _soundTimer;
         private readonly ICHIP8StackPointer _stackPointer;
 
@@ -18,8 +20,10 @@ namespace CHIP8.Core
         {
             _delayTimer = configuration.DelayTimer;
             _generalPurposeRegisters = configuration.Registers;
+            _instructionRegister = configuration.InstructionRegister;
             _memory = configuration.Memory;
             _programCounter = configuration.ProgramCounter;
+            _screen = configuration.Screen;
             _soundTimer = configuration.SoundTimer;
             _stackPointer = configuration.StackPointer;
         }

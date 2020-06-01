@@ -9,14 +9,14 @@ namespace CHIP8.InMemoryImplementation
     {
         private const Byte MAX_STACK_SIZE = 0xF;
         private const Byte STACK_REGISTER_INDEX = 0x0;
-        private readonly Byte[] _localStack;
+        private readonly UInt16[] _localStack;
 
         public CHIP8StackPointer() : base(0x1)
         {
-            _localStack = new Byte[MAX_STACK_SIZE];
+            _localStack = new UInt16[MAX_STACK_SIZE];
         }
 
-        public Byte Pop()
+        public UInt16 Pop()
         {
             Byte stackPointer = GetRegisterValue(STACK_REGISTER_INDEX);
 
@@ -27,14 +27,14 @@ namespace CHIP8.InMemoryImplementation
 
         }
 
-        public void Push(Byte value)
+        public void Push(UInt16 value)
         {
             Byte stackPointer = GetRegisterValue(STACK_REGISTER_INDEX);
 
             if (stackPointer >= MAX_STACK_SIZE)
                 throw new CHIP8StackOverflowException(MAX_STACK_SIZE);
 
-            _localStack[stackPointer] = value;
+            _localStack[++stackPointer] = value;
         }
     }
 }

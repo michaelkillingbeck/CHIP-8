@@ -14,7 +14,7 @@ namespace CHIP8.Infrastructure.Abstracts
             _registers = new T[_numberOfRegisters];
         }
 
-        public T GetRegisterValue(Byte registerIndex)
+        public T GetRegisterValue(Byte registerIndex = 0x0)
         {
             if (registerIndex >= _numberOfRegisters)
                 throw new CHIP8InvalidRegisterIndexException(registerIndex, _numberOfRegisters, nameof(registerIndex));
@@ -22,7 +22,7 @@ namespace CHIP8.Infrastructure.Abstracts
             return _registers[registerIndex];
         }
 
-        public void SetRegisterValue(Byte registerIndex, T value)
+        public void SetRegisterValue(Byte registerIndex = 0x0, T value = default)
         {
             if (registerIndex >= _numberOfRegisters)
                 throw new CHIP8InvalidRegisterIndexException(registerIndex, _numberOfRegisters, nameof(registerIndex));
