@@ -8,3 +8,15 @@
 /CHIP8.Infrastructure/obj/CHIP8.Infrastructure.csproj.nuget.dgspec.json
 /CHIP8.InMemoryImplementation/obj/CHIP8.InMemoryImplementation.csproj.nuget.dgspec.json
 /CHIP8.OpCodes/obj/CHIP8.OpCodes.csproj.nuget.dgspec.json
+/CHIP8.Console/bin/Debug/netcoreapp2.2
+/CHIP8.Console/obj/Debug/netcoreapp2.2
+/CHIP8.Console/obj
+/CHIP8.Core/bin/Debug/netstandard2.0
+/CHIP8.Core/obj/Debug/netstandard2.0
+/CHIP8.Core/obj
+/CHIP8.Infrastructure/bin/Debug/netstandard2.0
+/CHIP8.Infrastructure/obj
+/CHIP8.InMemoryImplementation/bin/Debug/netstandard2.0
+/CHIP8.InMemoryImplementation/obj
+/CHIP8.OpCodes/bin/Debug/netstandard2.0
+/CHIP8.OpCodes/obj
