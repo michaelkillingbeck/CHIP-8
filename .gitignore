@@ -20,3 +20,6 @@
 /CHIP8.InMemoryImplementation/obj
 /CHIP8.OpCodes/bin/Debug/netstandard2.0
 /CHIP8.OpCodes/obj
+/.vs/CHIP8/v15/Server/sqlite3
+/.vs/CHIP8/DesignTimeBuild
+/CHIP8ROMs
