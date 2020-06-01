@@ -8,6 +8,7 @@ namespace CHIP8.Infrastructure
     {
         public ICHIP8Timer DelayTimer { get; set; }
         public CHIP8Register<UInt16> InstructionRegister { get; set; }
+        public ICHIP8KeyManager KeyManager { get; set; }
         public ICHIP8Memory Memory { get; set; }
         public CHIP8Register<UInt16> ProgramCounter { get; set; }
         public CHIP8Register<Byte> Registers { get; set; }

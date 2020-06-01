@@ -32,5 +32,10 @@ namespace CHIP8.InMemoryImplementation
 
             Array.Copy(romBytes, 0, _localMemory, ROM_MEMORY_START, romBytes.Length);
         }
+
+        public void SetValueAtLocation(UInt16 location, Byte value)
+        {
+            _localMemory[location] = value;
+        }
     }
 }

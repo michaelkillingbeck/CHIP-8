@@ -16,6 +16,11 @@ namespace CHIP8.InMemoryImplementation
             throw new NotImplementedException();
         }
 
+        public Byte GetValue()
+        {
+            return _localValue;
+        }
+
         public void SetTimer(Byte value)
         {
             _localValue = value;

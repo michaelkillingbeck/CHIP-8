@@ -7,6 +7,7 @@ namespace CHIP8.InMemoryImplementation
     {
         public CHIP8InstructionRegister() : base(0x1)
         {
+            SetRegisterValue(0x0, 0x200);
         }
     }
 }

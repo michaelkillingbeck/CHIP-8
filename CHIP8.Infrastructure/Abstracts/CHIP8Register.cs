@@ -22,6 +22,11 @@ namespace CHIP8.Infrastructure.Abstracts
             return _registers[registerIndex];
         }
 
+        public Byte NumberOfRegisters()
+        {
+            return _numberOfRegisters;
+        }
+
         public void SetRegisterValue(Byte registerIndex = 0x0, T value = default)
         {
             if (registerIndex >= _numberOfRegisters)

@@ -22,8 +22,8 @@ namespace CHIP8.InMemoryImplementation
 
             if (stackPointer < 1)
                 throw new CHIP8IndexOutOfRangeException(stackPointer);
-
-            return _localStack[stackPointer--];
+            SetRegisterValue(value: --stackPointer);
+            return _localStack[stackPointer];
 
         }
 
@@ -34,7 +34,8 @@ namespace CHIP8.InMemoryImplementation
             if (stackPointer >= MAX_STACK_SIZE)
                 throw new CHIP8StackOverflowException(MAX_STACK_SIZE);
 
-            _localStack[++stackPointer] = value;
+            _localStack[stackPointer++] = value;
+            SetRegisterValue(value: stackPointer);
         }
     }
 }

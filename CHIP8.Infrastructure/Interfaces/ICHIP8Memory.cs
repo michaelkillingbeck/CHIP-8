@@ -6,5 +6,6 @@ namespace CHIP8.Infrastructure.Interfaces
     {
         Byte GetValueAtLocation(UInt16 location);
         void LoadROM(Byte[] romBytes);
+        void SetValueAtLocation(UInt16 location, Byte value);
     }
 }
