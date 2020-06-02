@@ -26,6 +26,11 @@ namespace CHIP8.InMemoryImplementation
             }
         }
 
+        public Boolean[,] GetScreenBufferClone()
+        {
+            return _screen.Clone() as Boolean[,];
+        }
+
         public Boolean GetStateAtLocation(Byte x, Byte y)
         {
             return _screen[x, y];

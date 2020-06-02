@@ -1,7 +1,9 @@
 ﻿using CHIP8.Core;
 using CHIP8.Infrastructure;
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Timers;
 
 namespace CHIP8.Console
 {
@@ -26,14 +28,47 @@ namespace CHIP8.Console
             chip8.LoadROM(romBytes);
 
             Int32 tickCounter = 0;
+            UInt16 clockSpeed = 540;
+            Byte refreshRate = 60;
+            TimeSpan lastClockTick = TimeSpan.FromTicks(0);
+            TimeSpan lastDisplayTick = TimeSpan.FromTicks(0);
+
+            Stopwatch clockTimer = Stopwatch.StartNew();
+            Stopwatch displayTimer = Stopwatch.StartNew();
 
             while (true)
             {
-                chip8.Tick();
-                tickCounter++;
+                TimeSpan currentClockTime = clockTimer.Elapsed;
+                TimeSpan currentDisplayTime = displayTimer.Elapsed;
+                TimeSpan elapseClockTime = currentClockTime - lastClockTick;
+                TimeSpan elapsedDisplayTime = currentClockTime - lastDisplayTick;
 
-                if(tickCounter % 100 == 0)
-                    System.Console.WriteLine($"{tickCounter} ticks.");
+                if (elapseClockTime.TotalMilliseconds > 1000 / clockSpeed)
+                {
+                    chip8.Tick();
+                    lastClockTick = currentClockTime;
+                }
+
+                //if (elapsedDisplayTime.TotalMilliseconds > 1000 / 60)
+                //{
+                //    DrawScreen(chip8.GetScreenBuffer());
+                //    lastDisplayTick = currentDisplayTime;
+                //}
+            }
+        }
+
+        private static void DrawScreen(Boolean[,] screenBuffer)
+        {
+            System.Console.SetCursorPosition(0, 0);
+
+            for (Byte y = 0; y < screenBuffer.GetLength(1); y++)
+            {
+                System.Console.SetCursorPosition(y, 0);
+
+                for (Byte x = 0; x < screenBuffer.GetLength(0); x++)
+                {
+                    System.Console.Write(screenBuffer[x,y] ? "#" : " ");
+                }
             }
         }
     }

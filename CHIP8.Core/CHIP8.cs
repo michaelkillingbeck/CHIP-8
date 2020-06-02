@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CHIP8.Infrastructure;
 using CHIP8.Infrastructure.Abstracts;
 using CHIP8.Infrastructure.Interfaces;
@@ -48,6 +49,7 @@ namespace CHIP8.Core
             _programCounter.SetRegisterValue(value: currentMemoryLocation);
 
             UInt16 currentInstruction = (UInt16)((opCodeBytes[0] << 8) + opCodeBytes[1]);
+            Trace.WriteLine(currentInstruction);
 
             OpCodeData opCodeData = new OpCodeData
             {
@@ -60,6 +62,11 @@ namespace CHIP8.Core
             };
 
             _opCodesDirector.HandleOpCode(opCodeData);
+        }
+
+        public Boolean[,] GetScreenBuffer()
+        {
+            return _screen.GetScreenBufferClone();
         }
     }
 }
