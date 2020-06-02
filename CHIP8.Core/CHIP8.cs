@@ -33,6 +33,12 @@ namespace CHIP8.Core
             opCodesDirector.Initialize(configuration);
         }
 
+        public void DisplayTick()
+        {
+            _delayTimer.DecrementTimer();
+            _soundTimer.DecrementTimer();
+        }
+
         public void LoadROM(Byte[] romBytes)
         {
             _memory.LoadROM(romBytes);

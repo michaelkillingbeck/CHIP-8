@@ -23,12 +23,12 @@ namespace CHIP8.OpCodes
         {
             if (opCodeData.Nibble == 0x0)
             {
-                UInt16 memoryAddress = _stackPointer.Pop();
-                _programCounter.SetRegisterValue(value: memoryAddress);
+                _screen.ClearScreen();
             }
             else if (opCodeData.Nibble == 0xE)
             {
-                _screen.ClearScreen();
+                UInt16 memoryAddress = _stackPointer.Pop();
+                _programCounter.SetRegisterValue(value: memoryAddress);                
             }
         }
     }

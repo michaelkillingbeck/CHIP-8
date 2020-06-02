@@ -24,7 +24,7 @@ namespace CHIP8.Console
                 StackPointer = new InMemoryImplementation.CHIP8StackPointer()
             };
             Core.CHIP8 chip8 = new Core.CHIP8(new CHIP8OpCodesDirector(), config);
-            Byte[] romBytes = File.ReadAllBytes(@"C:\Code\CHIP-8\CHIP8ROMs\BRIX");
+            Byte[] romBytes = File.ReadAllBytes(@"D:\Code\CHIP-8\CHIP8ROMs\BRIX");
             chip8.LoadROM(romBytes);
 
             Int32 tickCounter = 0;
@@ -49,11 +49,12 @@ namespace CHIP8.Console
                     lastClockTick = currentClockTime;
                 }
 
-                //if (elapsedDisplayTime.TotalMilliseconds > 1000 / 60)
-                //{
-                //    DrawScreen(chip8.GetScreenBuffer());
-                //    lastDisplayTick = currentDisplayTime;
-                //}
+                if (elapsedDisplayTime.TotalMilliseconds > 1000 / 60)
+                {
+                    chip8.DisplayTick();
+                    DrawScreen(chip8.GetScreenBuffer());
+                    lastDisplayTick = currentDisplayTime;
+                }
             }
         }
 

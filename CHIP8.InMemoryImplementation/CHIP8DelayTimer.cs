@@ -13,7 +13,8 @@ namespace CHIP8.InMemoryImplementation
 
         public void DecrementTimer()
         {
-            throw new NotImplementedException();
+            if (_localValue > 0)
+                _localValue--;
         }
 
         public Byte GetValue()
