@@ -6,6 +6,8 @@ namespace CHIP8.Infrastructure.Interfaces
     {
         void DisplayTick();
 
+        Boolean[,] GetScreenBuffer();
+
         void LoadROM(Byte[] romBytes);
 
         void Tick();

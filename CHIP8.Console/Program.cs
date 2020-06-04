@@ -3,6 +3,7 @@ using CHIP8.Infrastructure;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Timers;
 
 namespace CHIP8.Console
@@ -24,10 +25,10 @@ namespace CHIP8.Console
                 StackPointer = new InMemoryImplementation.CHIP8StackPointer()
             };
             Core.CHIP8 chip8 = new Core.CHIP8(new CHIP8OpCodesDirector(), config);
-            Byte[] romBytes = File.ReadAllBytes(@"D:\Code\CHIP-8\CHIP8ROMs\BRIX");
+            Byte[] romBytes = File.ReadAllBytes(@"C:\Code\CHIP-8\CHIP8ROMs\BRIX");
             chip8.LoadROM(romBytes);
 
-            Int32 tickCounter = 0;
+            Int32 displayTickCounter = 0;
             UInt16 clockSpeed = 540;
             Byte refreshRate = 60;
             TimeSpan lastClockTick = TimeSpan.FromTicks(0);
@@ -49,10 +50,16 @@ namespace CHIP8.Console
                     lastClockTick = currentClockTime;
                 }
 
-                if (elapsedDisplayTime.TotalMilliseconds > 1000 / 60)
+                if (elapsedDisplayTime.TotalMilliseconds > (1000 / 60))
                 {
                     chip8.DisplayTick();
-                    DrawScreen(chip8.GetScreenBuffer());
+                    displayTickCounter++;
+
+                    //if(displayTickCounter % 100 == 0)
+                    {
+                        DrawScreen(chip8.GetScreenBuffer());
+                    }
+
                     lastDisplayTick = currentDisplayTime;
                 }
             }
@@ -64,12 +71,14 @@ namespace CHIP8.Console
 
             for (Byte y = 0; y < screenBuffer.GetLength(1); y++)
             {
-                System.Console.SetCursorPosition(y, 0);
+                StringBuilder builder = new StringBuilder();
 
                 for (Byte x = 0; x < screenBuffer.GetLength(0); x++)
                 {
-                    System.Console.Write(screenBuffer[x,y] ? "#" : " ");
+                    builder.Append(screenBuffer[x, y] ? "#" : " ");
                 }
+
+                System.Console.WriteLine(builder.ToString());
             }
         }
     }

@@ -24,3 +24,5 @@
 /.vs/CHIP8/DesignTimeBuild
 /CHIP8ROMs
 /CHIP8.Console/bin/Debug/netcoreapp3.1
+/CHIP8.WinForms/bin/Debug
+/CHIP8.WinForms/obj/Debug

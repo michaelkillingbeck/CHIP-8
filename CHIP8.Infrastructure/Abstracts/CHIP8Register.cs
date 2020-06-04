@@ -16,7 +16,7 @@ namespace CHIP8.Infrastructure.Abstracts
 
         public T GetRegisterValue(Byte registerIndex = 0x0)
         {
-            if (registerIndex >= _numberOfRegisters)
+            if (registerIndex > _numberOfRegisters)
                 throw new CHIP8InvalidRegisterIndexException(registerIndex, _numberOfRegisters, nameof(registerIndex));
 
             return _registers[registerIndex];

@@ -5,7 +5,7 @@ namespace CHIP8.InMemoryImplementation
 {
     public class CHIP8GeneralPurposeRegisters : CHIP8Register<Byte>
     {
-        public CHIP8GeneralPurposeRegisters() : base(0xF)
+        public CHIP8GeneralPurposeRegisters() : base(0x10)
         {
         }
     }

@@ -4,6 +4,7 @@ using CHIP8.Infrastructure.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace CHIP8.OpCodes
@@ -38,15 +39,19 @@ namespace CHIP8.OpCodes
             for (Byte spritePosition = 0; spritePosition < sizeOfSprite; spritePosition++)
             {
                 Byte spriteByte = _memory.GetValueAtLocation((UInt16)(instructionRegisterLocation + spritePosition));
-                BitArray bitArray = new BitArray(spriteByte);
+                BitArray bitArray = new BitArray(new Byte[] { spriteByte });
 
-                for (Byte bitArrayIndex = 0; bitArrayIndex < bitArray.Length; bitArrayIndex++)
+                for (Byte bitArrayIndex = 7; bitArrayIndex > 0; bitArrayIndex--)
                 {
-                    Byte xPosition = (Byte)((startingX + bitArrayIndex) % _screenWidth);
-                    Byte yPosition = (Byte)((startingY + spriteByte) % _screenHeight);
+                    Byte xPosition = (Byte)((startingX + (7 - bitArrayIndex)) % _screenWidth);
+                    Byte yPosition = (Byte)((startingY + spritePosition) % _screenHeight);
+
+
                     Boolean oldState = _screen.GetStateAtLocation(xPosition, yPosition);
                     Boolean spriteState = bitArray[bitArrayIndex];
                     Boolean newState = oldState ^ spriteState;
+
+                    Trace.WriteLine($"{xPosition}:{yPosition} {oldState}^{spriteState}={newState}");
 
                     _screen.SetStateAtLocation(xPosition, yPosition, newState);
 
