@@ -36,6 +36,9 @@ namespace CHIP8.OpCodes
             Byte startingY = _registers.GetRegisterValue(opCodeData.Y);
             UInt16 instructionRegisterLocation = _instructionRegister.GetRegisterValue();
 
+            Trace.WriteLine($"{startingX},{startingY}");
+
+            _registers.SetRegisterValue(0xF, 0x0);
             for (Byte spritePosition = 0; spritePosition < sizeOfSprite; spritePosition++)
             {
                 Byte spriteByte = _memory.GetValueAtLocation((UInt16)(instructionRegisterLocation + spritePosition));
@@ -51,7 +54,8 @@ namespace CHIP8.OpCodes
                     Boolean spriteState = bitArray[bitArrayIndex];
                     Boolean newState = oldState ^ spriteState;
 
-                    Trace.WriteLine($"{xPosition}:{yPosition} {oldState}^{spriteState}={newState}");
+                    if (oldState != spriteState)
+                        _screen.SetDirtyFlag();
 
                     _screen.SetStateAtLocation(xPosition, yPosition, newState);
 

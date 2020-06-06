@@ -78,7 +78,7 @@ namespace CHIP8.OpCodes
 
         private void LoadRegisterValuesFromMemory(OpCodeData opCodeData)
         {
-            Byte numberOfRegisters = _registers.NumberOfRegisters();
+            Byte numberOfRegisters = opCodeData.X;
             UInt16 instructionRegisterValue = _instructionRegister.GetRegisterValue();
 
             for (Byte index = 0; index < numberOfRegisters; index++)

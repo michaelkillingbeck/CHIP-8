@@ -31,12 +31,18 @@ namespace CHIP8.Core
             _stackPointer = configuration.StackPointer;
 
             opCodesDirector.Initialize(configuration);
+            LoadFont();
         }
 
         public void DisplayTick()
         {
             _delayTimer.DecrementTimer();
             _soundTimer.DecrementTimer();
+        }
+
+        public Boolean[,] GetScreenBuffer()
+        {
+            return _screen.GetScreenBuffer();
         }
 
         public void LoadROM(Byte[] romBytes)
@@ -68,11 +74,108 @@ namespace CHIP8.Core
             };
 
             _opCodesDirector.HandleOpCode(opCodeData);
+            Trace.WriteLine(_generalPurposeRegisters.DebugString());
         }
 
-        public Boolean[,] GetScreenBuffer()
+        private void LoadFont()
         {
-            return _screen.GetScreenBufferClone();
+            Byte memoryAddress = 0x0;
+            // 0
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            // 1
+            _memory.SetValueAtLocation(memoryAddress++, 0x20);
+            _memory.SetValueAtLocation(memoryAddress++, 0x60);
+            _memory.SetValueAtLocation(memoryAddress++, 0x20);
+            _memory.SetValueAtLocation(memoryAddress++, 0x20);
+            _memory.SetValueAtLocation(memoryAddress++, 0x70);
+            // 2
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x10);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x80);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            // 3
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x10);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x10);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            // 4
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x10);
+            _memory.SetValueAtLocation(memoryAddress++, 0x10);
+            // 5
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x80);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x10);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            // 6
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x80);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            // 7
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x10);
+            _memory.SetValueAtLocation(memoryAddress++, 0x20);
+            _memory.SetValueAtLocation(memoryAddress++, 0x40);
+            _memory.SetValueAtLocation(memoryAddress++, 0x40);
+            // 8
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            // 9
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x10);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            // A
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            // B
+            _memory.SetValueAtLocation(memoryAddress++, 0xE0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0xE0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0xE0);
+            // C
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x80);
+            _memory.SetValueAtLocation(memoryAddress++, 0x80);
+            _memory.SetValueAtLocation(memoryAddress++, 0x80);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            // D
+            _memory.SetValueAtLocation(memoryAddress++, 0xE0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0x90);
+            _memory.SetValueAtLocation(memoryAddress++, 0xE0);
+            // E
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x80);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x80);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            // F
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x80);
+            _memory.SetValueAtLocation(memoryAddress++, 0xF0);
+            _memory.SetValueAtLocation(memoryAddress++, 0x80);
+            _memory.SetValueAtLocation(memoryAddress++, 0x80);
         }
     }
 }

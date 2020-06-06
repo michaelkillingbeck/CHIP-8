@@ -14,6 +14,11 @@ namespace CHIP8.Infrastructure.Abstracts
             _registers = new T[_numberOfRegisters];
         }
 
+        public String DebugString()
+        {
+            return String.Join(",", _registers);
+        }
+
         public T GetRegisterValue(Byte registerIndex = 0x0)
         {
             if (registerIndex > _numberOfRegisters)

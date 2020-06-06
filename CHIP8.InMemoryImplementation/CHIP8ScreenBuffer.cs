@@ -8,6 +8,7 @@ namespace CHIP8.InMemoryImplementation
         private const Byte SCREEN_HEIGHT = 32;
         private const Byte SCREEN_WIDTH = 64;
 
+        private Boolean _needsRedraw = true;
         private readonly Boolean[,] _screen;
 
         public CHIP8ScreenBuffer()
@@ -26,9 +27,15 @@ namespace CHIP8.InMemoryImplementation
             }
         }
 
-        public Boolean[,] GetScreenBufferClone()
+        public Boolean[,] GetScreenBuffer()
         {
-            return _screen.Clone() as Boolean[,];
+            if (_needsRedraw)
+            {
+                _needsRedraw = false;
+                return _screen;
+            }
+            else
+                return null;
         }
 
         public Boolean GetStateAtLocation(Byte x, Byte y)
@@ -49,6 +56,11 @@ namespace CHIP8.InMemoryImplementation
         public Byte ScreenWidth()
         {
             return SCREEN_WIDTH;
+        }
+
+        public void SetDirtyFlag()
+        {
+            _needsRedraw = true;
         }
     }
 }

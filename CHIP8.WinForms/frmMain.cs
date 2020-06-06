@@ -14,11 +14,12 @@ namespace CHIP8.WinForms
     public partial class frmMain : Form
     {
         private static ICHIP8 _chip8;
+        private static ICHIP8KeyManager _keyManager = new WinFormsKeyManager();
         private static CHIP8Configuration _config = new CHIP8Configuration
         {
             DelayTimer = new InMemoryImplementation.CHIP8DelayTimer(),
             InstructionRegister = new InMemoryImplementation.CHIP8InstructionRegister(),
-            KeyManager = new WinFormsKeyManager(),
+            KeyManager = _keyManager,
             Memory = new InMemoryImplementation.CHIP8Memory(),
             ProgramCounter = new InMemoryImplementation.CHIP8ProgramCounterRegister(),
             Registers = new InMemoryImplementation.CHIP8GeneralPurposeRegisters(),
@@ -37,6 +38,19 @@ namespace CHIP8.WinForms
             picScreen.Image = _screen;
 
             btnReset.Enabled = false;
+
+            KeyDown += KeyPressed;
+            KeyUp += KeyReleased;
+        }
+
+        private void KeyReleased(object sender, KeyEventArgs e)
+        {
+            _keyManager.KeyReleased((Int32)e.KeyCode);
+        }
+
+        private void KeyPressed(object sender, KeyEventArgs e)
+        {
+            _keyManager.KeyPressed((Int32)e.KeyCode);
         }
 
         private void btnLoadRom_Click(object sender, EventArgs e)
@@ -64,7 +78,7 @@ namespace CHIP8.WinForms
         private void Run()
         {
             _chip8 = new Core.CHIP8(new CHIP8OpCodesDirector(), _config);
-            Byte[] romBytes = File.ReadAllBytes(@"C:\Code\CHIP-8\CHIP8ROMs\BRIX");
+            Byte[] romBytes = File.ReadAllBytes(@"D:\Code\CHIP-8\CHIP8ROMs\BRIX");
             _chip8.LoadROM(romBytes);
             _running = true;
 
@@ -88,38 +102,43 @@ namespace CHIP8.WinForms
 
                 if (screenElapsed > screenRefreshRate)
                 {
+                    _chip8.DisplayTick();
                     lastScreenTick = elapsedTime;
                     Boolean[,] screen = _chip8.GetScreenBuffer();
-                    _screen = new Bitmap(screen.GetLength(0), screen.GetLength(1));
 
-                    BitmapData bits =
-                        _screen.LockBits(
-                            new Rectangle(0, 0, _screen.Width, _screen.Height),
-                            ImageLockMode.WriteOnly,
-                            PixelFormat.Format32bppArgb);
-
-                    unsafe
+                    if (screen != null)
                     {
-                        Byte* pointer = (Byte*)bits.Scan0;
+                        _screen = new Bitmap(screen.GetLength(0), screen.GetLength(1));
 
-                        for (Int32 y = 0; y < _screen.Height; y++)
+                        BitmapData bits =
+                            _screen.LockBits(
+                                new Rectangle(0, 0, _screen.Width, _screen.Height),
+                                ImageLockMode.WriteOnly,
+                                PixelFormat.Format32bppArgb);
+
+                        unsafe
                         {
-                            for (Int32 x = 0; x < _screen.Width; x++)
-                            {
-                                pointer[0] = 0;
-                                pointer[1] = screen[x, y] ? (Byte)0x64 : (Byte)0;
-                                pointer[2] = 0;
-                                pointer[3] = 255;
+                            Byte* pointer = (Byte*)bits.Scan0;
 
-                                pointer += 4;
+                            for (Int32 y = 0; y < _screen.Height; y++)
+                            {
+                                for (Int32 x = 0; x < _screen.Width; x++)
+                                {
+                                    pointer[0] = 0;
+                                    pointer[1] = screen[x, y] ? (Byte)0x64 : (Byte)0;
+                                    pointer[2] = 0;
+                                    pointer[3] = 255;
+
+                                    pointer += 4;
+                                }
                             }
                         }
+
+                        _screen.UnlockBits(bits);
+
+                        RefreshScreen(_screen);
                     }
-
-                    _screen.UnlockBits(bits);
-                }
-
-                RefreshScreen(_screen);
+                }                
             }
         }
 
