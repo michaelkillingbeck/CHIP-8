@@ -30,7 +30,7 @@
         {
             this.btnLoadRom = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
-            this.picScreen = new System.Windows.Forms.PictureBox();
+            this.picScreen = new CHIP8.WinForms.CustomPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picScreen)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,9 +56,8 @@
             // 
             // picScreen
             // 
-            this.picScreen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picScreen.Location = new System.Drawing.Point(9, 42);
-            this.picScreen.Margin = new System.Windows.Forms.Padding(0);
+            this.picScreen.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            this.picScreen.Location = new System.Drawing.Point(9, 41);
             this.picScreen.Name = "picScreen";
             this.picScreen.Size = new System.Drawing.Size(640, 320);
             this.picScreen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -73,6 +72,7 @@
             this.Controls.Add(this.picScreen);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnLoadRom);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmMain";
@@ -86,7 +86,7 @@
 
         private System.Windows.Forms.Button btnLoadRom;
         private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.PictureBox picScreen;
+        private CustomPictureBox picScreen;
     }
 }
 

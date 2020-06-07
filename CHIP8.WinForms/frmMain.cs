@@ -78,13 +78,13 @@ namespace CHIP8.WinForms
         private void Run()
         {
             _chip8 = new Core.CHIP8(new CHIP8OpCodesDirector(), _config);
-            Byte[] romBytes = File.ReadAllBytes(@"D:\Code\CHIP-8\CHIP8ROMs\BRIX");
+            Byte[] romBytes = File.ReadAllBytes(@"C:\Code\CHIP-8\CHIP8ROMs\BRIX");
             _chip8.LoadROM(romBytes);
             _running = true;
 
             Stopwatch timer = Stopwatch.StartNew();
             Int64 screenRefreshRate = 1000 / 60;
-            Int64 clockSpeed = 1000 / 50;
+            Int64 clockSpeed = 1000 / 540;
             Int64 lastClockTick = 0;
             Int64 lastScreenTick = 0;
 
