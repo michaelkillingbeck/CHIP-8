@@ -81,7 +81,7 @@ namespace CHIP8.OpCodes
             Byte numberOfRegisters = opCodeData.X;
             UInt16 instructionRegisterValue = _instructionRegister.GetRegisterValue();
 
-            for (Byte index = 0; index < numberOfRegisters; index++)
+            for (Byte index = 0; index <= numberOfRegisters; index++)
             {
                 Byte memoryValue = _memory.GetValueAtLocation((UInt16)(instructionRegisterValue + index));
                 _registers.SetRegisterValue(index, memoryValue);
@@ -104,7 +104,9 @@ namespace CHIP8.OpCodes
             UInt16 instructionRegisterValue = _instructionRegister.GetRegisterValue();
             Byte vXValue = _registers.GetRegisterValue(opCodeData.X);
 
-            _memory.SetValueAtLocation(instructionRegisterValue, (Byte)((vXValue / 100) % 10));
+            _memory.SetValueAtLocation(instructionRegisterValue++, (Byte)((vXValue / 100) % 10));
+            _memory.SetValueAtLocation(instructionRegisterValue++, (Byte)((vXValue / 10) % 10));
+            _memory.SetValueAtLocation(instructionRegisterValue, (Byte)((vXValue) % 10));
         }
 
         private void SetDelayTimerToRegisterValue(OpCodeData opCodeData)
