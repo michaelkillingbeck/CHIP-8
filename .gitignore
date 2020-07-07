@@ -27,3 +27,7 @@
 /CHIP8.WinForms/bin/Debug
 /CHIP8.WinForms/obj/Debug
 /.vscode
+/.vs
+/CHIP8.WinForms.Dotnetcore/bin/Debug/netcoreapp3.1
+/CHIP8.WinForms.Dotnetcore/obj
+/ConsoleCHIP8/obj

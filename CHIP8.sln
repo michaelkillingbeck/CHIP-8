@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CHIP8.Core", "CHIP8.Core\CHIP8.Core.csproj", "{86485C83-7829-415A-B6E7-C59FCFD7F078}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CHIP8.OpCodes", "CHIP8.OpCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CHIP8.Infrastructure", "CHIP8.Infrastructure\CHIP8.Infrastructure.csproj", "{C9829F13-54AD-47CF-A89F-34B4912CA2E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHIP8.WinForms", "CHIP8.WinForms\CHIP8.WinForms.csproj", "{DFBDCBB9-4B3A-47BC-855C-AEB33543FD1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHIP8.WinForms.Dotnetcore", "CHIP8.WinForms.Dotnetcore\CHIP8.WinForms.Dotnetcore.csproj", "{3090181C-4CF7-40CE-877A-B761F78CBAEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +39,10 @@ Global
 		{DFBDCBB9-4B3A-47BC-855C-AEB33543FD1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFBDCBB9-4B3A-47BC-855C-AEB33543FD1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFBDCBB9-4B3A-47BC-855C-AEB33543FD1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3090181C-4CF7-40CE-877A-B761F78CBAEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3090181C-4CF7-40CE-877A-B761F78CBAEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3090181C-4CF7-40CE-877A-B761F78CBAEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3090181C-4CF7-40CE-877A-B761F78CBAEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

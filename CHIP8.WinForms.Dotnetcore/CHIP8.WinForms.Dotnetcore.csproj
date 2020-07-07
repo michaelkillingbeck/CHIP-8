@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CHIP8.Core\CHIP8.Core.csproj" />
+    <ProjectReference Include="..\CHIP8.Infrastructure\CHIP8.Infrastructure.csproj" />
+    <ProjectReference Include="..\CHIP8.InMemoryImplementation\CHIP8.InMemoryImplementation.csproj" />
+  </ItemGroup>
+
+</Project>
