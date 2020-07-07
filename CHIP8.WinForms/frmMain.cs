@@ -17,6 +17,7 @@ namespace CHIP8.WinForms
         private static ICHIP8KeyManager _keyManager = new WinFormsKeyManager();
         private static CHIP8Configuration _config = new CHIP8Configuration
         {
+            CPURefreshRate = 540,
             DelayTimer = new InMemoryImplementation.CHIP8DelayTimer(),
             InstructionRegister = new InMemoryImplementation.CHIP8InstructionRegister(),
             KeyManager = _keyManager,
@@ -24,6 +25,7 @@ namespace CHIP8.WinForms
             ProgramCounter = new InMemoryImplementation.CHIP8ProgramCounterRegister(),
             Registers = new InMemoryImplementation.CHIP8GeneralPurposeRegisters(),
             Screen = new InMemoryImplementation.CHIP8ScreenBuffer(),
+            ScreenRefreshRate = 60,
             SoundTimer = new InMemoryImplementation.CHIP8SoundTimer(),
             StackPointer = new InMemoryImplementation.CHIP8StackPointer()
         };
@@ -41,6 +43,42 @@ namespace CHIP8.WinForms
 
             KeyDown += KeyPressed;
             KeyUp += KeyReleased;
+        }
+
+        private void HandleScreenRefresh(Object sender, Boolean[,] screenArray)
+        {
+            if (screenArray != null)
+            {
+                _screen = new Bitmap(screenArray.GetLength(0), screenArray.GetLength(1));
+
+                BitmapData bits =
+                    _screen.LockBits(
+                        new Rectangle(0, 0, _screen.Width, _screen.Height),
+                        ImageLockMode.WriteOnly,
+                        PixelFormat.Format32bppArgb);
+
+                unsafe
+                {
+                    Byte* pointer = (Byte*)bits.Scan0;
+
+                    for (Int32 y = 0; y < _screen.Height; y++)
+                    {
+                        for (Int32 x = 0; x < _screen.Width; x++)
+                        {
+                            pointer[0] = 0;
+                            pointer[1] = screenArray[x, y] ? (Byte)0x64 : (Byte)0;
+                            pointer[2] = 0;
+                            pointer[3] = 255;
+
+                            pointer += 4;
+                        }
+                    }
+                }
+
+                _screen.UnlockBits(bits);
+
+                RefreshScreen(_screen);
+            }
         }
 
         private void KeyReleased(object sender, KeyEventArgs e)
@@ -65,8 +103,8 @@ namespace CHIP8.WinForms
         {
             if (picScreen.InvokeRequired)
             {
-                var x = new SafeCallDelegate(RefreshScreen);
-                picScreen.Invoke(x, new object[] { source });
+                var localDelegate = new SafeCallDelegate(RefreshScreen);
+                picScreen.Invoke(localDelegate, new object[] { source });
             }
             else
             {
@@ -80,66 +118,7 @@ namespace CHIP8.WinForms
             _chip8 = new Core.CHIP8(new CHIP8OpCodesDirector(), _config);
             Byte[] romBytes = File.ReadAllBytes(@"C:\Code\CHIP-8\CHIP8ROMs\BRIX");
             _chip8.LoadROM(romBytes);
-            _running = true;
-
-            Stopwatch timer = Stopwatch.StartNew();
-            Int64 screenRefreshRate = 1000 / 60;
-            Int64 clockSpeed = 1000 / 540;
-            Int64 lastClockTick = 0;
-            Int64 lastScreenTick = 0;
-
-            while (_running)
-            {
-                Int64 elapsedTime = timer.ElapsedMilliseconds;
-                Int64 screenElapsed = elapsedTime - lastScreenTick;
-                Int64 clockElapsed = elapsedTime - lastClockTick;
-
-                if (clockElapsed > clockSpeed)
-                {
-                    lastClockTick = elapsedTime;
-                    _chip8.Tick();
-                }
-
-                if (screenElapsed > screenRefreshRate)
-                {
-                    _chip8.DisplayTick();
-                    lastScreenTick = elapsedTime;
-                    Boolean[,] screen = _chip8.GetScreenBuffer();
-
-                    if (screen != null)
-                    {
-                        _screen = new Bitmap(screen.GetLength(0), screen.GetLength(1));
-
-                        BitmapData bits =
-                            _screen.LockBits(
-                                new Rectangle(0, 0, _screen.Width, _screen.Height),
-                                ImageLockMode.WriteOnly,
-                                PixelFormat.Format32bppArgb);
-
-                        unsafe
-                        {
-                            Byte* pointer = (Byte*)bits.Scan0;
-
-                            for (Int32 y = 0; y < _screen.Height; y++)
-                            {
-                                for (Int32 x = 0; x < _screen.Width; x++)
-                                {
-                                    pointer[0] = 0;
-                                    pointer[1] = screen[x, y] ? (Byte)0x64 : (Byte)0;
-                                    pointer[2] = 0;
-                                    pointer[3] = 255;
-
-                                    pointer += 4;
-                                }
-                            }
-                        }
-
-                        _screen.UnlockBits(bits);
-
-                        RefreshScreen(_screen);
-                    }
-                }                
-            }
+            _chip8.ScreenRefresh += HandleScreenRefresh;
         }
 
         private void btnReset_Click(object sender, EventArgs e)

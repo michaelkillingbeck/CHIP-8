@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CHIP8.Infrastructure\CHIP8.Infrastructure.csproj" />
+    <ProjectReference Include="..\CHIP8.InMemoryImplementation\CHIP8.InMemoryImplementation.csproj" />
     <ProjectReference Include="..\CHIP8.OpCodes\CHIP8.OpCodes.csproj" />
   </ItemGroup>
 

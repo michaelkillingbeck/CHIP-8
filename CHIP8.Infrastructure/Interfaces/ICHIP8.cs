@@ -4,9 +4,9 @@ namespace CHIP8.Infrastructure.Interfaces
 {
     public interface ICHIP8
     {
-        void DisplayTick();
+        event EventHandler<Boolean[,]> ScreenRefresh;
 
-        Boolean[,] GetScreenBuffer();
+        void DisplayTick();
 
         void LoadROM(Byte[] romBytes);
 

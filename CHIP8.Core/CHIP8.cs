@@ -3,11 +3,13 @@ using System.Diagnostics;
 using CHIP8.Infrastructure;
 using CHIP8.Infrastructure.Abstracts;
 using CHIP8.Infrastructure.Interfaces;
+using CHIP8.InMemoryImplementation;
 
 namespace CHIP8.Core
 {
     public class CHIP8 : ICHIP8
     {
+        private readonly ICHIP8ClockFrequencyTimer _cpuTimer;
         private readonly ICHIP8Timer _delayTimer;
         private readonly CHIP8Register<Byte> _generalPurposeRegisters;
         private readonly CHIP8Register<UInt16> _instructionRegister;
@@ -15,8 +17,11 @@ namespace CHIP8.Core
         private readonly ICHIP8OpCodesDirector _opCodesDirector;
         private readonly CHIP8Register<UInt16> _programCounter;
         private readonly ICHIP8ScreenBuffer _screen;
+        private readonly ICHIP8ClockFrequencyTimer _screenRefreshTimer;
         private readonly ICHIP8Timer _soundTimer;
         private readonly ICHIP8StackPointer _stackPointer;
+
+        public event EventHandler<Boolean[,]> ScreenRefresh;
 
         public CHIP8(ICHIP8OpCodesDirector opCodesDirector, CHIP8Configuration configuration)
         {
@@ -30,19 +35,23 @@ namespace CHIP8.Core
             _soundTimer = configuration.SoundTimer;
             _stackPointer = configuration.StackPointer;
 
+            _cpuTimer = new CHIP8Timer(configuration.CPURefreshRate);
+            _cpuTimer.TimerExpired += CPUTimerExpired;
+            _screenRefreshTimer = new CHIP8Timer(configuration.ScreenRefreshRate);
+            _screenRefreshTimer.TimerExpired += ScreenRefreshTimerExpired;
+
+
             opCodesDirector.Initialize(configuration);
             LoadFont();
+
+            _cpuTimer.Start();
+            _screenRefreshTimer.Start();
         }
 
         public void DisplayTick()
         {
             _delayTimer.DecrementTimer();
             _soundTimer.DecrementTimer();
-        }
-
-        public Boolean[,] GetScreenBuffer()
-        {
-            return _screen.GetScreenBuffer();
         }
 
         public void LoadROM(Byte[] romBytes)
@@ -75,6 +84,19 @@ namespace CHIP8.Core
 
             _opCodesDirector.HandleOpCode(opCodeData);
             Trace.WriteLine(_generalPurposeRegisters.DebugString());
+            _cpuTimer.Start();
+        }
+
+        private void CPUTimerExpired(Object sender, EventArgs args)
+        {
+            Tick();  
+        }
+
+        private void ScreenRefreshTimerExpired(Object sender, EventArgs args)
+        {
+            DisplayTick();
+            ScreenRefresh?.Invoke(this, _screen.GetScreenBuffer());
+            _screenRefreshTimer.Start();
         }
 
         private void LoadFont()
