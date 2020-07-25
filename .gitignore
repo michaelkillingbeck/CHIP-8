@@ -31,3 +31,7 @@
 /CHIP8.WinForms.Dotnetcore/bin/Debug/netcoreapp3.1
 /CHIP8.WinForms.Dotnetcore/obj
 /ConsoleCHIP8/obj
+/CHIP8.OpCodes.Tests/bin
+/CHIP8.OpCodes.Tests/obj
+/CHIP8.InMemoryImplementation.Tests/bin
+/CHIP8.InMemoryImplementation.Tests/obj
